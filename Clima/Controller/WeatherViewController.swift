@@ -13,12 +13,41 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var conditionImageView: UIImageView!
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var cityLabel: UILabel!
+    @IBOutlet weak var searchTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        searchTextField.delegate = self
     }
 
-
+    @IBAction func onSearchPressed(_ sender: UIButton) {
+        searchTextField.endEditing(true)
+    }
 }
 
+extension WeatherViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        searchTextField.endEditing(true)
+        return true
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if textField.text != "" {
+            return true
+        } else {
+            textField.placeholder = "Please enter something"
+            return false
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        // Capture searchTextField.text to fetch the weather for that city
+        if let enteredCityName = searchTextField.text {
+            print("Entered City Name : \(enteredCityName)")
+            searchTextField.text = ""
+            searchTextField.placeholder = "Search"
+        }
+    }
+}
