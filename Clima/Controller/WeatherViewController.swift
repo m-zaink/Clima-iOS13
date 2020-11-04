@@ -22,6 +22,7 @@ class WeatherViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         searchTextField.delegate = self
+        weatherRunner.delegate = self
     }
 
     @IBAction func onSearchPressed(_ sender: UIButton) {
@@ -47,10 +48,19 @@ extension WeatherViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         // Capture searchTextField.text to fetch the weather for that city
         if let enteredCityName = searchTextField.text {
-            print("Entered City Name : \(enteredCityName)")
             weatherRunner.weather(for: enteredCityName)
             searchTextField.text = ""
             searchTextField.placeholder = "Search"
         }
+    }
+}
+
+extension WeatherViewController: WeatherRunnerDelegate {
+    func weatherRunner(_ weatherRunner: WeatherRunner, didFetchWeather weather: Weather) {
+        print(weather)
+    }
+    
+    func weatherRunnerDidFail(_ weatherRunner: WeatherRunner) {
+        print("Failed to fetch data")
     }
 }
