@@ -18,11 +18,9 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var searchIconButton: UIButton!
     @IBOutlet weak var weatherDescription: UILabel!
     
-    var hapticGenerator: UINotificationFeedbackGenerator!
+    private var hapticGenerator: UINotificationFeedbackGenerator!
     
-    var weatherRunner: WeatherRunner = WeatherRunner()
-    
-    var isTemperatureInCelsius: Bool = true
+    private var weatherRunner: WeatherRunner = WeatherRunner()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,13 +36,13 @@ class WeatherViewController: UIViewController {
         searchTextField.endEditing(true)
     }
     
-    func showActivityIndicatorAndHideSearchIconButton() {
+    private func showActivityIndicatorAndHideSearchIconButton() {
         activityIndicator.startAnimating()
         activityIndicator.isHidden = false
         searchIconButton.isHidden = true
     }
     
-    func hideActivityIndicatorAndShowSearchIconButton() {
+    private func hideActivityIndicatorAndShowSearchIconButton() {
         activityIndicator.stopAnimating()
         activityIndicator.isHidden = true
         searchIconButton.isHidden = false
@@ -87,13 +85,8 @@ extension WeatherViewController: WeatherRunnerDelegate {
             self.hapticGenerator.notificationOccurred(.success)
             
             self.hideActivityIndicatorAndShowSearchIconButton()
-            self.conditionImageView.image = self.conditionImage(for: weather.type)
-            self.temperatureLabel.text = String(
-                format: "%.1f",
-                self.isTemperatureInCelsius
-                    ? weather.temperatureInCelsius
-                    : weather.temperatureInFahrenheit
-            )
+            self.conditionImageView.image = self.icon(basedOn: weather.type)
+            self.temperatureLabel.text = String(format: "%.1f", weather.temperatureInCelsius)
             self.cityLabel.text = weather.city
             self.weatherDescription.text = weather.type.rawValue
         }
@@ -108,7 +101,7 @@ extension WeatherViewController: WeatherRunnerDelegate {
         }
     }
     
-    func conditionImage(for weatherType: WeatherType) -> UIImage {
+    private func icon(basedOn weatherType: WeatherType) -> UIImage {
         switch weatherType {
         case .clear:
             return UIImage.init(systemName: "sun.max")!
