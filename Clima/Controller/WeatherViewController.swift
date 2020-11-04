@@ -15,6 +15,8 @@ class WeatherViewController: UIViewController {
     @IBOutlet weak var cityLabel: UILabel!
     @IBOutlet weak var searchTextField: UITextField!
     
+    var weatherRunner: WeatherRunner = WeatherRunner()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -46,6 +48,7 @@ extension WeatherViewController: UITextFieldDelegate {
         // Capture searchTextField.text to fetch the weather for that city
         if let enteredCityName = searchTextField.text {
             print("Entered City Name : \(enteredCityName)")
+            weatherRunner.weather(for: enteredCityName)
             searchTextField.text = ""
             searchTextField.placeholder = "Search"
         }
