@@ -22,8 +22,8 @@ struct WeatherRunner {
     
     var delegate: WeatherRunnerDelegate?
     
-    func weather(for city: String) {
-        let weatherForCityUrl = "\(baseUrl)&q=\(city)"
+    func fetchWeather(for city: String) {
+        let weatherForCityUrl = "\(baseUrl)&q=\(city)".sanitisedURL
         
         if let url = URL(string: weatherForCityUrl) {
             let session = URLSession(configuration: .default)
@@ -37,6 +37,7 @@ struct WeatherRunner {
                 
                 if let error = error {
                     print(error)
+                    delegate?.weatherRunnerDidFail(self)
                     return
                 }
                 
@@ -59,6 +60,39 @@ struct WeatherRunner {
             }
             
             task.resume()
+        } else {
+            delegate?.weatherRunnerDidFail(self)
         }
     }
+}
+
+extension String {
+    /// Replace spaces in an URL string with "%20" to adhere to web formats
+    var sanitisedURL: String {
+        condensed.replacingOccurrences(
+            of: " ",
+            with: "%20"
+        )
+    }
+    
+    /// Returns a condensed string, with no extra whitespaces and no new lines.
+    var condensed: String {
+        replacingOccurrences(
+            of: "[\\s\n]+",
+            with: " ",
+            options: .regularExpression,
+            range: nil
+        )
+    }
+
+    /// Returns a condensed string, with no whitespaces at all and no new lines.
+    var extraCondensed: String {
+        replacingOccurrences(
+            of: "[\\s\n]+",
+            with: "",
+            options: .regularExpression,
+            range: nil
+        )
+    }
+
 }

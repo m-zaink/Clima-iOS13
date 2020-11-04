@@ -37,11 +37,18 @@
                                                 <state key="normal" backgroundImage="location.circle.fill" catalog="system"/>
                                             </button>
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search" textAlignment="right" clearsOnBeginEditing="YES" minimumFontSize="12" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="2eh-wL-W34">
-                                                <rect key="frame" x="50" y="0.0" width="274" height="40"/>
+                                                <rect key="frame" x="50" y="0.0" width="224" height="40"/>
                                                 <color key="backgroundColor" systemColor="systemFillColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="go"/>
                                             </textField>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="6r8-x3-Wkf">
+                                                <rect key="frame" x="284" y="0.0" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="1L1-XR-YTW"/>
+                                                    <constraint firstAttribute="width" constant="40" id="c3i-NB-TDG"/>
+                                                </constraints>
+                                            </activityIndicatorView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Cr-pd-dUW">
                                                 <rect key="frame" x="334" y="1" width="40" height="38"/>
                                                 <constraints>
@@ -65,37 +72,45 @@
                                         </constraints>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gx9-I8-UoC">
-                                        <rect key="frame" x="176" y="180" width="198" height="119.5"/>
+                                        <rect key="frame" x="183" y="180" width="191" height="119.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" text="21" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w9o-tW-03D" userLabel="Temperature Label">
-                                                <rect key="frame" x="0.0" y="0.0" width="93" height="119.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" text="🖤" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w9o-tW-03D" userLabel="Temperature Label">
+                                                <rect key="frame" x="0.0" y="0.0" width="86" height="119.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="80"/>
                                                 <color key="textColor" name="weatherColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="°" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="N7Y-Fj-S2q" userLabel="Temperature Label">
-                                                <rect key="frame" x="93" y="0.0" width="38" height="119.5"/>
+                                                <rect key="frame" x="86" y="0.0" width="38" height="119.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="100"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="C" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MHH-vY-Mrb" userLabel="Temperature Label">
-                                                <rect key="frame" x="131" y="0.0" width="67" height="119.5"/>
+                                                <rect key="frame" x="124" y="0.0" width="67" height="119.5"/>
                                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="100"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="London" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CWP-r8-Jsy">
-                                        <rect key="frame" x="276" y="309.5" width="98" height="36"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hi! Your city name goes there👆" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CWP-r8-Jsy">
+                                        <rect key="frame" x="0.0" y="309.5" width="374" height="72"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LUm-O1-vU5">
+                                        <rect key="frame" x="324" y="391.5" width="50" height="50"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0ti-bh-8Fw">
-                                        <rect key="frame" x="134" y="355.5" width="240" height="462.5"/>
+                                        <rect key="frame" x="134" y="451.5" width="240" height="366.5"/>
                                     </view>
                                 </subviews>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="CWP-r8-Jsy" secondAttribute="trailing" id="0Cg-ve-2qk"/>
                                     <constraint firstAttribute="trailing" secondItem="Tgv-vV-Mot" secondAttribute="trailing" id="Xxe-YD-sFY"/>
+                                    <constraint firstItem="CWP-r8-Jsy" firstAttribute="leading" secondItem="Wz9-jj-JbA" secondAttribute="leading" id="zL3-Mu-JNb"/>
                                     <constraint firstItem="Tgv-vV-Mot" firstAttribute="leading" secondItem="Wz9-jj-JbA" secondAttribute="leading" id="zMA-9O-gQ7"/>
                                 </constraints>
                             </stackView>
@@ -114,10 +129,13 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="6r8-x3-Wkf" id="GMt-I5-idC"/>
                         <outlet property="cityLabel" destination="CWP-r8-Jsy" id="8cQ-3l-ufV"/>
                         <outlet property="conditionImageView" destination="mYn-vV-MBC" id="gpD-FU-YB0"/>
+                        <outlet property="searchIconButton" destination="4Cr-pd-dUW" id="Hx7-6s-2GH"/>
                         <outlet property="searchTextField" destination="2eh-wL-W34" id="WWx-eL-cwL"/>
                         <outlet property="temperatureLabel" destination="w9o-tW-03D" id="mF4-vV-JxK"/>
+                        <outlet property="weatherDescription" destination="LUm-O1-vU5" id="fyZ-UY-E4v"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
