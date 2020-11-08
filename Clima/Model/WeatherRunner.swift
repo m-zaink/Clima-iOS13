@@ -7,11 +7,23 @@
 //
 
 import Foundation
+import CoreLocation
 
 protocol WeatherRunnerDelegate {
     func weatherRunner(_ weatherRunner: WeatherRunner, didFetchWeather weather: Weather)
     
-    func weatherRunnerDidFail(_ weatherRunner: WeatherRunner)
+    func weatherRunner(_ weatherRunner: WeatherRunner, didFailWithError error: Error)
+}
+
+
+struct WeatherError: LocalizedError {
+    let title: String
+    let message: String?
+}
+
+struct LocationCoordinates {
+    let latitude: Double
+    let longitude: Double
 }
 
 struct WeatherRunner {
@@ -25,7 +37,17 @@ struct WeatherRunner {
     func fetchWeather(for city: String) {
         let weatherForCityUrl = "\(baseUrl)&q=\(city)".sanitisedURL
         
-        if let url = URL(string: weatherForCityUrl) {
+        fetchWeather(fromURL: weatherForCityUrl)
+    }
+    
+    func fetchWeather(for coordinates: LocationCoordinates) {
+        let weatherForLocationCoordinates = "\(baseUrl)&lat=\(coordinates.latitude)&lon=\(coordinates.longitude)".sanitisedURL
+        
+        fetchWeather(fromURL: weatherForLocationCoordinates)
+    }
+    
+    func fetchWeather(fromURL url: String) {
+        if let url = URL(string: url) {
             let session = URLSession(configuration: .default)
             
             let task = session.dataTask(with: url) {
@@ -37,7 +59,15 @@ struct WeatherRunner {
                 
                 if let error = error {
                     print(error)
-                    delegate?.weatherRunnerDidFail(self)
+                    
+                    delegate?.weatherRunner(
+                        self,
+                        didFailWithError: WeatherError(
+                            title: "Something went wrong with our servers!",
+                            message: "Please try again in sometime"
+                        )
+                    )
+                    
                     return
                 }
                 
@@ -54,14 +84,27 @@ struct WeatherRunner {
                         )
                     } catch {
                         print(error)
-                        delegate?.weatherRunnerDidFail(self)
+                        
+                        delegate?.weatherRunner(
+                            self,
+                            didFailWithError: WeatherError(
+                                title: "There was an issue in fetching the data",
+                                message: "Please come back after sometime"
+                            )
+                        )
                     }
                 }
             }
             
             task.resume()
         } else {
-            delegate?.weatherRunnerDidFail(self)
+            delegate?.weatherRunner(
+                self,
+                didFailWithError: WeatherError(
+                    title: "Something went wrong from our side!",
+                    message: "Please try again after sometime"
+                )
+            )
         }
     }
 }
@@ -84,7 +127,7 @@ extension String {
             range: nil
         )
     }
-
+    
     /// Returns a condensed string, with no whitespaces at all and no new lines.
     var extraCondensed: String {
         replacingOccurrences(
@@ -94,5 +137,4 @@ extension String {
             range: nil
         )
     }
-
 }

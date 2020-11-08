@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class WeatherViewController: UIViewController {
     
@@ -22,6 +23,8 @@ class WeatherViewController: UIViewController {
     
     private var weatherRunner: WeatherRunner = WeatherRunner()
     
+    private var locationManager: CLLocationManager = CLLocationManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -30,9 +33,20 @@ class WeatherViewController: UIViewController {
         weatherRunner.delegate = self
         hapticGenerator = UINotificationFeedbackGenerator()
         hapticGenerator.prepare()
+        
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
     }
     
     @IBAction func onSearchPressed(_ sender: UIButton) {
+        searchTextField.endEditing(true)
+    }
+    
+    @IBAction func onLocationPressed(_ sender: UIButton) {
+        locationManager.requestLocation()
+    }
+    
+    @IBAction func onTapGestureRecognized(_ sender: UITapGestureRecognizer) {
         searchTextField.endEditing(true)
     }
     
@@ -92,13 +106,15 @@ extension WeatherViewController: WeatherRunnerDelegate {
         }
     }
     
-    func weatherRunnerDidFail(_ weatherRunner: WeatherRunner) {
+    func weatherRunner(_ weatherRunner: WeatherRunner, didFailWithError error: Error) {
         DispatchQueue.main.async {
             self.hapticGenerator.notificationOccurred(.error)
             
             self.hideActivityIndicatorAndShowSearchIconButton()
             self.searchTextField.placeholder = "Please enter a valid city name"
         }
+        
+        print(error)
     }
     
     private func icon(basedOn weatherType: WeatherType) -> UIImage {
@@ -118,5 +134,24 @@ extension WeatherViewController: WeatherRunnerDelegate {
         case .foggy:
             return UIImage.init(systemName: "cloud.fog")!
         }
+    }
+}
+
+extension WeatherViewController: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print(error)
+        manager.stopUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.last {
+            print("Latitude: \(location.coordinate.latitude)")
+            print("Longitude: \(location.coordinate.longitude)")
+        }
+        manager.stopUpdatingLocation()
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        print(status)
     }
 }
