@@ -25,6 +25,14 @@
                                     <outletCollection property="gestureRecognizers" destination="o8M-pd-xjb" appends="YES" id="rgY-al-ghx"/>
                                 </connections>
                             </imageView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="6r8-x3-Wkf">
+                                <rect key="frame" x="187" y="428" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="1L1-XR-YTW"/>
+                                    <constraint firstAttribute="width" constant="40" id="c3i-NB-TDG"/>
+                                </constraints>
+                                <color key="color" name="weatherColor"/>
+                            </activityIndicatorView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Wz9-jj-JbA">
                                 <rect key="frame" x="20" y="54" width="374" height="808"/>
                                 <subviews>
@@ -44,18 +52,11 @@
                                                 </connections>
                                             </button>
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search" textAlignment="right" clearsOnBeginEditing="YES" minimumFontSize="12" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="2eh-wL-W34">
-                                                <rect key="frame" x="50" y="0.0" width="224" height="40"/>
+                                                <rect key="frame" x="50" y="0.0" width="274" height="40"/>
                                                 <color key="backgroundColor" systemColor="systemFillColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="go"/>
                                             </textField>
-                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="6r8-x3-Wkf">
-                                                <rect key="frame" x="284" y="0.0" width="40" height="40"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="1L1-XR-YTW"/>
-                                                    <constraint firstAttribute="width" constant="40" id="c3i-NB-TDG"/>
-                                                </constraints>
-                                            </activityIndicatorView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Cr-pd-dUW">
                                                 <rect key="frame" x="334" y="1" width="40" height="38"/>
                                                 <constraints>
@@ -129,7 +130,9 @@
                             <constraint firstItem="kWX-h1-VLT" firstAttribute="leading" secondItem="g3Y-cT-2C3" secondAttribute="leading" id="H2N-Gj-59Y"/>
                             <constraint firstItem="can-OR-uJU" firstAttribute="trailing" secondItem="Wz9-jj-JbA" secondAttribute="trailing" constant="20" id="LQB-Jw-U4O"/>
                             <constraint firstAttribute="bottom" secondItem="kWX-h1-VLT" secondAttribute="bottom" id="Lre-TN-6aS"/>
+                            <constraint firstItem="6r8-x3-Wkf" firstAttribute="centerY" secondItem="g3Y-cT-2C3" secondAttribute="centerY" id="MFV-0F-QF3"/>
                             <constraint firstItem="Wz9-jj-JbA" firstAttribute="top" secondItem="can-OR-uJU" secondAttribute="top" constant="10" id="ZPO-lJ-0zl"/>
+                            <constraint firstItem="6r8-x3-Wkf" firstAttribute="centerX" secondItem="g3Y-cT-2C3" secondAttribute="centerX" id="l8u-cj-5A9"/>
                             <constraint firstItem="kWX-h1-VLT" firstAttribute="top" secondItem="g3Y-cT-2C3" secondAttribute="top" id="pC7-h7-LYz"/>
                             <constraint firstItem="Wz9-jj-JbA" firstAttribute="leading" secondItem="g3Y-cT-2C3" secondAttribute="leading" constant="20" id="t9u-zc-7Ub"/>
                             <constraint firstItem="can-OR-uJU" firstAttribute="bottom" secondItem="Wz9-jj-JbA" secondAttribute="bottom" id="xZf-D7-jKn"/>

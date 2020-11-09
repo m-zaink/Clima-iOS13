@@ -28,7 +28,7 @@ class WeatherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        hideActivityIndicatorAndShowSearchIconButton()
+        hideActivityIndicator()
         searchTextField.delegate = self
         weatherRunner.delegate = self
         hapticGenerator = UINotificationFeedbackGenerator()
@@ -50,16 +50,14 @@ class WeatherViewController: UIViewController {
         searchTextField.endEditing(true)
     }
     
-    private func showActivityIndicatorAndHideSearchIconButton() {
+    private func showActivityIndicator() {
         activityIndicator.startAnimating()
         activityIndicator.isHidden = false
-        searchIconButton.isHidden = true
     }
     
-    private func hideActivityIndicatorAndShowSearchIconButton() {
+    private func hideActivityIndicator() {
         activityIndicator.stopAnimating()
         activityIndicator.isHidden = true
-        searchIconButton.isHidden = false
     }
 }
 
@@ -81,7 +79,7 @@ extension WeatherViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         // Capture searchTextField.text to fetch the weather for that city
         if let enteredCityName = searchTextField.text {
-            showActivityIndicatorAndHideSearchIconButton()
+            showActivityIndicator()
             clearSearchTextFieldAndResetPlaceHolder()
             weatherRunner.fetchWeather(for: enteredCityName)
         }
@@ -98,7 +96,7 @@ extension WeatherViewController: WeatherRunnerDelegate {
         DispatchQueue.main.async {
             self.hapticGenerator.notificationOccurred(.success)
             
-            self.hideActivityIndicatorAndShowSearchIconButton()
+            self.hideActivityIndicator()
             self.conditionImageView.image = self.icon(basedOn: weather.type)
             self.temperatureLabel.text = String(format: "%.1f", weather.temperatureInCelsius)
             self.cityLabel.text = weather.city
@@ -110,7 +108,7 @@ extension WeatherViewController: WeatherRunnerDelegate {
         DispatchQueue.main.async {
             self.hapticGenerator.notificationOccurred(.error)
             
-            self.hideActivityIndicatorAndShowSearchIconButton()
+            self.hideActivityIndicator()
             self.searchTextField.placeholder = "Please enter a valid city name"
         }
         
